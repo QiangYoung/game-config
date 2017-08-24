@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" verbose="true">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS} %-.5level]%class{0}:%L %msg%n" />
+      <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+      <!-- <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" /> -->
+      <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL" />
+    </Console>
+    <Console name="ErrConsole" target="SYSTEM_ERR">
+      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS} %-.5level]%class{0}:%L %msg%n" />
+      <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+      <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+    </Console>
+    <RollingFile name="RollingFile">
+      <fileName>logs/script-core.log</fileName>
+      <filePattern>logs/$${date:yyyy-MM-dd}/script-core-%d{yyyy-MM-dd-HH}-%i.log.gz</filePattern>
+      <PatternLayout>
+        <Pattern>[%d{yyyy-MM-dd HH:mm:ss:SSS} %-.5level]%class{0}:%L %msg%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <!-- 每隔多少时间间隔触发日志存储，时间单位以上面的日志文件命名精度来确定，这里是1小时存储一次 -->
+        <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+        <!-- 日子文件达到指定大小的时候触发日志存储 -->
+        <SizeBasedTriggeringPolicy size="5 KB" />
+      </Policies>
+      <!-- 最新的存储的日志有最大的序号，序号从1开始，最大的序号为3(默认为7)，每次删除最小序号的存储日志 -->
+      <DefaultRolloverStrategy fileIndex="max" min="1" max="3" />
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="debug">
+      <AppenderRef ref="Console" level="trace" />
+      <AppenderRef ref="ErrConsole" level="error" />
+      <AppenderRef ref="RollingFile" level="debug" />
+    </Root>
+  </Loggers>
+</Configuration>
