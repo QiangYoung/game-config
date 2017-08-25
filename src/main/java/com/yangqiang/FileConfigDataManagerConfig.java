@@ -23,7 +23,7 @@ public class FileConfigDataManagerConfig {
     /** 文件路径 */
     protected String configFileDir;
     /** 文件后缀 */
-    protected String configFileSuffix = "";
+    protected String configFileSuffix;
 
     public FileConfigDataManagerConfig() {
 
@@ -44,7 +44,7 @@ public class FileConfigDataManagerConfig {
         }
         ConfigFileScan configFileScan = configClz.getAnnotation(ConfigFileScan.class);
         if (configFileScan != null) {
-            this.configFileDir = configFileScan.value();
+            this.configFileDir = configFileScan.path();
             this.configFileSuffix = configFileScan.suffix();
         }
         XmlFileScan xmlFileScan = configClz.getAnnotation(XmlFileScan.class);

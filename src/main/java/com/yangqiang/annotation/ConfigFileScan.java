@@ -20,7 +20,7 @@ public @interface ConfigFileScan {
      *
      * @return
      */
-    String value();
+    String path() default "";
 
     /**
      * 配置文件后缀

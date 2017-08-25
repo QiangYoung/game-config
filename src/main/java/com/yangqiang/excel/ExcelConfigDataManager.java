@@ -29,7 +29,16 @@ public class ExcelConfigDataManager extends FileConfigDataManager {
     }
 
     public IConfigWrapper parseTableDesc(TableDesc tableDesc) {
-        String configFile = getConfigFileDir() + File.separatorChar + tableDesc.getName() + getConfigFileSuffix();
-        return new ExcelConfigWrapper(configFile, tableDesc).build();
+        StringBuilder configFile = new StringBuilder();
+        String configFileDir = getConfigFileDir();
+        if (configFileDir != null) {
+            configFile.append(configFileDir).append(File.separatorChar);
+        }
+        configFile.append(tableDesc.getName());
+        String configFileSuffix = getConfigFileSuffix();
+        if (configFileSuffix != null) {
+            configFile.append(configFileSuffix);
+        }
+        return new ExcelConfigWrapper(configFile.toString(), tableDesc).build();
     }
 }

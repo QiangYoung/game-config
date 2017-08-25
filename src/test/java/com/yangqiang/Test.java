@@ -12,7 +12,7 @@ import com.yangqiang.excel.ExcelConfigDataManager;
 /**
  * @author YangQiang
  */
-@ConfigFileScan(value = "E:\\GitRepository\\game-config\\src\\test\\resources", suffix = ".xlsx")
+@ConfigFileScan(path = "E:\\GitRepository\\game-config\\src\\test\\resources", suffix = ".xlsx")
 @PackageScan("com.yangqiang.beans")
 public class Test {
     public static void main(String[] args) throws Exception {

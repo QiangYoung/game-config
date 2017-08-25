@@ -54,9 +54,6 @@ public abstract class FileConfigDataManager extends AbstractConfigDataManager {
     }
 
     public FileConfigDataManager setConfigFileSuffix(String configFileSuffix) {
-        if (configFileSuffix == null) {
-            configFileSuffix = "";
-        }
         this.config.setConfigFileSuffix(configFileSuffix);
         return this;
     }
@@ -83,14 +80,6 @@ public abstract class FileConfigDataManager extends AbstractConfigDataManager {
     }
 
     private void parseFileConfig() throws Exception {
-        String configFileDir = getConfigFileDir();
-        Objects.requireNonNull(configFileDir, "configFileDir 不能为空!");
-        File excelFile = new File(configFileDir);
-        if (!excelFile.isDirectory()) {
-            LOGGER.error("配置文件路径错误[%s]", configFileDir);
-            throw new RuntimeException(String.format("excel文件路径错误[%s]", configFileDir));
-        }
-
         Map<String, Class> cacheClz = new HashMap<>();
         Map<String, TableDesc> configTable = new HashMap<>();
 
